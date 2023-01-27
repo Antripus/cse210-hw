@@ -1,6 +1,6 @@
 using System;
 
-class Program
+class Condicional
 {
     static void Main(string[] args)
     {
