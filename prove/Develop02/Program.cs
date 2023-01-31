@@ -97,7 +97,7 @@ class Program
 
         JournalEntry journalEntry = new JournalEntry();
         Journal journal = new Journal();
-
+        
 
         while (option != 5 )
         {
@@ -142,6 +142,7 @@ class Program
                 //Console.WriteLine("Display");
 
                 readJournal(newfilename); // METHOD - Journal
+                
 
                 //Console.WriteLine("//Display");
             }
