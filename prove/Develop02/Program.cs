@@ -1,20 +1,102 @@
 using System;
 using System.IO; 
 
+
 class Program
 {
-    static void Main(string[] args)
-    {
-        string defaultfilename = "myFile.txt";
-        string newfilename=defaultfilename;
-        int option = 0;
-        List<string> promts = new List<string>();
+    //Journal Class
+
+    //Save Journal
+    static void saveJournal (string newfilename, string defaultfilename) {
+        Console.WriteLine("What is the file name?");
+                
+        Console.Write("> ");
+        string newfilename2 = Console.ReadLine();
+        using (var reader = new StreamReader(newfilename))
+        using (var writer = new StreamWriter(defaultfilename, append: false))
+        {
+            writer.Write(reader.ReadToEnd());
+        }
+        // I need to do 2 copies because when I try to copy a file with the same name give me an error. So I create a bridge with my default name file
+        using (var reader = new StreamReader(defaultfilename))
+        using (var writer = new StreamWriter(newfilename2, append: false))
+        {
+            writer.Write(reader.ReadToEnd());
+        }
+
+    }
+    //Load Journal
+    static string loadJournal () {
+        Console.WriteLine("Load");
+        Console.WriteLine("What is the file name?");
+        Console.Write("> ");
+        string newfilename = Console.ReadLine();
+        
+        return newfilename;
+    }
+    //Read Journal
+    static void readJournal (string newfilename) {
+
+        string[] lines = System.IO.File.ReadAllLines(newfilename);
+
+        foreach (string line in lines)
+        {
+            Console.WriteLine($"{line}");
+        }
+    }
+
+    //JournalEntry Class
+
+    //Save Journal
+    static void regestryJournal (string newfilename, string dateText, string promt, string answer){
+        //Create the file with append option
+        using (StreamWriter outputFile = new StreamWriter(newfilename, append: true))
+        {
+            outputFile.WriteLine($"Date: {dateText} - Promt: {promt} ");
+            outputFile.WriteLine($"{answer}");
+        }
+    }
+
+    
+    //Load Journal
+    static string obtainDateTextNow () {
+        DateTime theCurrentTime = DateTime.Now;
+        string dateText = theCurrentTime.ToShortDateString();
+        return dateText;
+    }
+    //Read Journal
+    static List<String> generatePromtList () {
+        List<string> promts = new List<string>();   
         promts.Add("What was the best part of my day?");
         promts.Add("What was I learn today?");
         promts.Add("Who take my attention today?");
         promts.Add("Something surprise me today?");
         promts.Add("How I see the hand of the lord today?");
 
+        return promts;
+    }
+
+    static String askPromt(List<string> promts)
+    {
+        var random = new Random(); 
+        int index = random.Next(promts.Count);
+        string promt = promts[index];
+        Console.WriteLine(promt);
+
+        return promt;
+    }
+    
+    
+    static void Main(string[] args) //MAIN
+    {
+        string defaultfilename = "myFile.txt";
+        string newfilename=defaultfilename;
+        int option = 0;
+
+        List<string> promts = generatePromtList(); // METHOD - JournalEntry
+
+        JournalEntry journalEntry = new JournalEntry();
+        Journal journal = new Journal();
 
 
         while (option != 5 )
@@ -32,74 +114,47 @@ class Program
 
             if (option == 1) //Write
             {
-                Console.WriteLine("Write");
+                //Console.WriteLine("Write");
                 
                 // Take a random index number from promts and then print in the console
-                var random = new Random(); 
-                int index = random.Next(promts.Count);
-                string promt = promts[index];
-                Console.WriteLine(promt);
-
+               
+                string promt = askPromt(promts); // METHOD - JournalEntry
+        
                 Console.Write("> ");
                 string answer = Console.ReadLine();
-
-                DateTime theCurrentTime = DateTime.Now;
-                string dateText = theCurrentTime.ToShortDateString();
+                
+                string dateText = obtainDateTextNow();// METHOD - JournalEntry
                 
                 //Console.WriteLine($"Date: {dateText} - Promt: {promt} ");
                 //Console.WriteLine($"{answer}");
 
 
                 //Create the file with append option
-                using (StreamWriter outputFile = new StreamWriter(newfilename, append: true))
-                {
-                    outputFile.WriteLine($"Date: {dateText} - Promt: {promt} ");
-                    outputFile.WriteLine($"{answer}");
-                }
-
-                Console.WriteLine("//Write");
+                regestryJournal(newfilename,dateText,promt,answer);// METHOD - JournalEntry
+                
+                
+                //Console.WriteLine("//Write");
 
 
             }
             else if (option == 2) //Display
             {
-                Console.WriteLine("Display");
+                //Console.WriteLine("Display");
 
-                string[] lines = System.IO.File.ReadAllLines(newfilename);
+                readJournal(newfilename); // METHOD - Journal
 
-                foreach (string line in lines)
-                {
-                    Console.WriteLine($"{line}");
-                }
-                Console.WriteLine("//Display");
+                //Console.WriteLine("//Display");
             }
             else if (option == 3) //Load
             {
-                Console.WriteLine("Load");
-                Console.WriteLine("What is the file name?");
-                
-                Console.Write("> ");
-                newfilename = Console.ReadLine();
+                newfilename = loadJournal (); // METHOD - Journal
+
             }
                else if (option == 4) //Save
             {
                 Console.WriteLine("Save");
 
-                Console.WriteLine("What is the file name?");
-                
-                Console.Write("> ");
-                string newfilename2 = Console.ReadLine();
-                using (var reader = new StreamReader(newfilename))
-                using (var writer = new StreamWriter(defaultfilename, append: false))
-                {
-                    writer.Write(reader.ReadToEnd());
-                }
-                // I need to do 2 copies because when I try to copy a file with the same name give me an error. So I create a bridge with my default name file
-                using (var reader = new StreamReader(defaultfilename))
-                using (var writer = new StreamWriter(newfilename2, append: false))
-                {
-                    writer.Write(reader.ReadToEnd());
-                }
+                saveJournal (newfilename,defaultfilename); // METHOD - Journal
 
             }
                else if (option == 5) //Quit
@@ -118,8 +173,13 @@ class Program
 
 
     }
+
+
 }
 /*
+journal 
+journal entry
+
 Este programa debe contener las siguientes características:
 
 1 - Escribir una nueva entrada: 
