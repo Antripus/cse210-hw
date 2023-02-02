@@ -15,7 +15,7 @@ public class Journal
 
 
         //Save Journal
-        public static void saveJournal (string newfilename, string defaultfilename) {
+        public void saveJournal (string newfilename, string defaultfilename) {
             Console.WriteLine("What is the file name?");
                     
             Console.Write("> ");
@@ -34,7 +34,7 @@ public class Journal
 
         }
         //Load Journal
-        public static string loadJournal () {
+        public string loadJournal () {
             Console.WriteLine("Load");
             Console.WriteLine("What is the file name?");
             Console.Write("> ");
@@ -43,7 +43,7 @@ public class Journal
             return newfilename;
         }
         //Read Journal
-        public static void readJournal (string newfilename) {
+        public void readJournal (string newfilename) {
 
             string[] lines = System.IO.File.ReadAllLines(newfilename);
 
@@ -53,14 +53,14 @@ public class Journal
             }
         }
 
-        //tests
-        public static void grabarLibro(){
-            Console.WriteLine ("HOLA");
-        }
+        // //tests
+        // public static void grabarLibro(){
+        //     Console.WriteLine ("HOLA");
+        // }
 
-        static void grabarLibro2(){
-            Console.WriteLine ("HOLA");
-        }
-        //test
+        // static void grabarLibro2(){
+        //     Console.WriteLine ("HOLA");
+        // }
+        // //test
 
 }

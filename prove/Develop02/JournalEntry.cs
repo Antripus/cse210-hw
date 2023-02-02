@@ -8,7 +8,7 @@ public class JournalEntry
 
     }
     
-    public static void regestryJournal (string newfilename, string dateText, string promt, string answer){
+    public void regestryJournal (string newfilename, string dateText, string promt, string answer){
         //Create the file with append option
         using (StreamWriter outputFile = new StreamWriter(newfilename, append: true))
         {
@@ -18,13 +18,13 @@ public class JournalEntry
     }
 
     
-    public static string obtainDateTextNow () {
+    public string obtainDateTextNow () {
         DateTime theCurrentTime = DateTime.Now;
         string dateText = theCurrentTime.ToShortDateString();
         return dateText;
     }
     
-    public static List<String> generatePromtList () {
+    public List<String> generatePromtList () {
         List<string> promts = new List<string>();   
         promts.Add("What was the best part of my day?");
         promts.Add("What was I learn today?");
@@ -35,7 +35,7 @@ public class JournalEntry
         return promts;
     }
 
-    public static String askPromt(List<string> promts)
+    public String askPromt(List<string> promts)
     {
         var random = new Random(); 
         int index = random.Next(promts.Count);
