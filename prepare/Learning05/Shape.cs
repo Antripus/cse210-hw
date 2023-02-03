@@ -1,11 +1,11 @@
 
 
-public abstract class shape{
+public abstract class Shape{
 
 
     public string _color = "";
 
-    public shape(string color)
+    public Shape(string color)
     {
         _color = color;
     }
