@@ -1,0 +1,5 @@
+200
+1|Leer LDM|2 vers por dia|100|True
+2|Levantarme a las 7 am|todos los dias|50|False|2
+3|sacar la basura|9 pm|25|False|0|7|300
+3|sacar la basura|9 pm|25|False|0|5|500
