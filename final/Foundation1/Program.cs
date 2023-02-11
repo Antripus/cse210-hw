@@ -41,7 +41,7 @@ class Program
             }
             
         }
-
+        int videoIndex = 1;
         //recorro la lista de videos para mostrar lo solicitado
         foreach (Video v in videos){
             string author = v.getAuthor();
@@ -50,9 +50,10 @@ class Program
             int numeroDeComentarios = v.getNumberOfComments();
             
             Console.WriteLine();
-            Console.WriteLine($"Title: {title} - Author: {author} - Time in seconds: {tiempoSegundos}");
+            Console.WriteLine($"Video: {videoIndex} - Title: {title} - Author: {author} - Time in seconds: {tiempoSegundos}");
             Console.WriteLine($"Number of comments: {numeroDeComentarios}");
             v.displayComments();
+            videoIndex = videoIndex + 1;
         }
     }
 
